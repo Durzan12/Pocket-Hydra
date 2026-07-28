@@ -7,6 +7,8 @@ The Pocket Hydra is an all-in-one wireless multi-tool and protocol workstation p
 
     Wi-Fi Reconnaissance: Scan local airwaves, list SSIDs, and log signal strengths (RSSI).
 
+    Deauther: Pretty much is also a Deauther
+
     Dual-Frequency RF Control: Independent or synchronized control over dual CC1101 modules for multi-band RF transmission/jamming (configured for 433MHz and 315MHz).
 
     Infrared Toolkit: Capture/read IR signals from standard remotes (NEC, Sony, RC5, RC6) and replay custom signal vectors.
