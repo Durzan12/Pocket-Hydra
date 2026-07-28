@@ -1,0 +1,60 @@
+# Pocket Hydra: Multi-Tool + BLE Hardware Wiring Guide
+
+This document outlines the pinout and wiring schematics required to integrate the multi-tool module with an ESP8266 (NodeMCU) running the Pocket Hydra firmware extension.
+
+---
+
+## 1. OLED Display (SSD1306 - I2C)
+| Display Pin | ESP8266 GPIO / Pin | Description |
+| :--- | :--- | :--- |
+| **GND** | GND | Ground |
+| **VCC** | 3V3 | Power (3.3V) |
+| **SCL** | D1 (GPIO 5) | I2C Clock |
+| **SDA** | D2 (GPIO 4) | I2C Data |
+
+---
+
+## 2. HM-10 Bluetooth BLE Module
+| HM-10 Pin | ESP8266 GPIO / Pin | Description |
+| :--- | :--- | :--- |
+| **VCC** | 3V3 / 5V | Power (dependent on module regulator) |
+| **GND** | GND | Ground |
+| **TX** | D5 (GPIO 14) | SoftwareSerial RX |
+| **RX** | D6 (GPIO 12) | SoftwareSerial TX |
+
+---
+
+## 3. CC1101 Wireless Modules (SPI)
+Both CC1101 modules utilize the shared hardware SPI bus, separated by individual Chip Select (CSN) pins.
+
+| SPI Signal | ESP8266 GPIO / Pin | Description |
+| :--- | :--- | :--- |
+| **GND** | GND | Ground |
+| **VCC** | 3V3 | Power (Must be strictly 3.3V) |
+| **MOSI** | D7 (GPIO 13) | Shared SPI MOSI |
+| **MISO** | D6 (GPIO 12) | Shared SPI MISO |
+| **SCLK** | D5 (GPIO 14) | Shared SPI Clock |
+
+| Module Assignment | CSN Pin | Description |
+| :--- | :--- | :--- |
+| **CC1101 Module 1 (433MHz)** | D8 (GPIO 15) | Chip Select 1 |
+| **CC1101 Module 2 (315MHz)** | D4 (GPIO 2) | Chip Select 2 |
+
+---
+
+## 4. Navigation & Control Buttons (Active Low)
+Wire momentary push buttons between the specified GPIO and Ground (`GND`). Internal pull-ups are handled in software.
+
+| Button Function | ESP8266 GPIO / Pin | Description |
+| :--- | :--- | :--- |
+| **BTN_NEXT** | D0 (GPIO 16) | Cycle menu forward |
+| **BTN_PREV** | D3 (GPIO 0) | Cycle menu backward |
+| **BTN_SELECT** | RX (GPIO 3) | Trigger action / Select item |
+
+---
+
+## 5. Infrared (IR) Peripherals
+| Component | ESP8266 GPIO / Pin | Description |
+| :--- | :--- | :--- |
+| **IR Receiver (e.g., )** | D7 (GPIO 13) | Signal input |
+| **IR Transmitter LED** | D9 (GPIO 9) | Signal output (include a $\sim 220\Omega$ current-limiting resistor) |
